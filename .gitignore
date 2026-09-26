@@ -1,0 +1,5 @@
+#Ignore the below files
+
+node_modules/
+.env
+dist/
