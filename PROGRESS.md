@@ -1,13 +1,14 @@
 # Progress
 
 Current week: 1
-Last session: 2026-09-26
+Last session: 2026-09-28
 
 ## Done
 - [x] Week 1 · Sat Sep 26: setup + scaffold
+- [x] Week 1 · Sun Sep 27: create `todo_api` database, run `schema.sql`, push to GitHub (`job-copilot` repo)
+- [x] Week 1 · Mon Sep 28: `POST /auth/register` with bcrypt (Postman set up)
 
 ## Carry-over (unfinished)
-- Postman not installed yet (curl/browser used so far)
 
 ## Open questions for next session
-- Why did `/boom-async` crash the whole server but `/boom-sync` didn't?
+- On login, how do you check a password if you can't reverse the stored hash?
