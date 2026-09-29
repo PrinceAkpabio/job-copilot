@@ -1,9 +1,16 @@
 import {Request, Response} from 'express';
 import bcrypt from 'bcrypt';
-import {createUser} from '../models/userModel';
+import {createUser, findUserByEmail} from '../models/userModel';
+import jwt from 'jsonwebtoken';
+
+if(!process.env.JWT_SECRET) {
+    throw new Error('JWT SECRET NOT SET');
+}
 
 const BCRYPT_COST = 12;
 const UNIQUE_VIOLATION = '23505';
+const DUMMY_HASH = bcrypt.hashSync('dummy-password', BCRYPT_COST);
+const JWT_SECRET: string = process.env.JWT_SECRET;
 
 export async function register(req: Request, res: Response) {
     const {email, password} = req.body ?? {};
@@ -31,4 +38,27 @@ export async function register(req: Request, res: Response) {
         }
         throw error;
     }
+}
+
+export async function login(req: Request, res: Response) {
+    const { email, password } = req.body ?? {};
+
+    if(typeof email !== 'string' || typeof password !== 'string') {
+        res.status(400).json({error: 'Email or Password must be a string'});
+        return;
+    }
+
+    const normalizedEmail = email.trim().toLowerCase();
+    const user = await findUserByEmail(normalizedEmail);
+    const passwordHashToCheck = user ? user.password_hash : DUMMY_HASH;
+    const comparedPassword = await bcrypt.compare(password, passwordHashToCheck);
+
+    if(!user || !comparedPassword) {
+        res.status(401).json({error: 'Invalid email or password'});
+        return;
+    }
+
+    const token = jwt.sign({sub: user.id}, JWT_SECRET, {expiresIn: '1h'})
+    res.status(200).json({token});
+    return;
 }

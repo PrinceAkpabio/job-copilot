@@ -19,3 +19,8 @@ Prince's own notes, 2–3 lines per session.
 1. Parameterized inputs are the way to go when writing SQL queries, so attackers can't get into the database through SQL injection.
 2. Validation checks are key in controller logic to limit CPU and resource usage. They also help relate the actual cause of an error if its a client error instead of returning the generic 500 error message.
 3. The TypeScript compiler doesn't check SQL strings, so mistakes in queries don't show up at build time, only when a request hits that route. This is where ORMs come in to help catch such errors at runtime although a tradeoff can be that slower queries occur.
+
+## Tue Sep 29, 2026: POST /auth/login + JWT
+
+1. `bcrypt.compare` reads the salt from the stored hash.
+2. Anyone can read a JWT, but no one can change it or create a new one without the secret. A stolen token can   still be reused until it expires, which is why the expiry is short
