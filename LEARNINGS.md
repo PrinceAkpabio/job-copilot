@@ -24,3 +24,10 @@ Prince's own notes, 2–3 lines per session.
 
 1. `bcrypt.compare` reads the salt from the stored hash.
 2. Anyone can read a JWT, but no one can change it or create a new one without the secret. A stolen token can   still be reused until it expires, which is why the expiry is short
+
+## Wed Sep 30, 2026: auth middleware + todos
+
+1. If you accept a `userId` coming from the client, it can lead to an Insecure Direct Object Reference (IDOR) bug, where an attacker can use a valid JWT to write to and fetch user data from a database.
+2. The difference between named and default exports: a named export has to be imported by its name, while a default export can be imported under any name. The latter can cause confusion, because different names for the same module are hard to track in a codebase.
+3. Via declarative merging, properties can be added to a typescript type, which only exists at compile time.
+4. Database tables are unordered in nature, hence it's best to order lists fetched from a database (e.g. latest first).

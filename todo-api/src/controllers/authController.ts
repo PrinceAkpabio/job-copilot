@@ -2,15 +2,11 @@ import {Request, Response} from 'express';
 import bcrypt from 'bcrypt';
 import {createUser, findUserByEmail} from '../models/userModel';
 import jwt from 'jsonwebtoken';
-
-if(!process.env.JWT_SECRET) {
-    throw new Error('JWT SECRET NOT SET');
-}
+import {JWT_SECRET} from '../config';
 
 const BCRYPT_COST = 12;
 const UNIQUE_VIOLATION = '23505';
 const DUMMY_HASH = bcrypt.hashSync('dummy-password', BCRYPT_COST);
-const JWT_SECRET: string = process.env.JWT_SECRET;
 
 export async function register(req: Request, res: Response) {
     const {email, password} = req.body ?? {};
