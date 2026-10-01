@@ -29,3 +29,10 @@ export function requireAuth(req: Request, res: Response, next: NextFunction) {
     req.userId = payload.sub;
     next();
 }
+
+export function getUserId(req: Request): string {
+    if(!req.userId) {
+        throw new Error("getUserId called on a route without requireAuth");
+    }
+    return req.userId;
+}

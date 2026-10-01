@@ -1,5 +1,5 @@
 import {Router} from 'express';
-import {create, list} from '../controllers/todoController';
+import {create, list, remove, update} from '../controllers/todoController';
 import {asyncHandler} from '../middleware/asyncHandler';
 import { requireAuth } from '../middleware/requireAuth';
 
@@ -7,7 +7,17 @@ const router = Router();
 
 router.use(requireAuth);
 
-router.post('/create', asyncHandler(create));
-router.get('/list', asyncHandler(list));
+router.param('id', (req, res, next, id) => {
+    if(!/^\d+$/.test(id)) {
+        res.status(400).json({error: 'Invalid todo id'});
+        return;
+    }
+    next();
+});
+
+router.post('/', asyncHandler(create));
+router.get('/', asyncHandler(list));
+router.patch('/:id', asyncHandler(update));
+router.delete('/:id', asyncHandler(remove));
 
 export default router;

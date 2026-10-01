@@ -31,3 +31,7 @@ Prince's own notes, 2–3 lines per session.
 2. The difference between named and default exports: a named export has to be imported by its name, while a default export can be imported under any name. The latter can cause confusion, because different names for the same module are hard to track in a codebase.
 3. Via declarative merging, properties can be added to a typescript type, which only exists at compile time.
 4. Database tables are unordered in nature, hence it's best to order lists fetched from a database (e.g. latest first).
+
+## Thu Oct 1, 2026: update + delete todos
+
+1. Ownership checks belong in the `WHERE` clause.

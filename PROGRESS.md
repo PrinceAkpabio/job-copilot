@@ -1,7 +1,7 @@
 # Progress
 
 Current week: 1
-Last session: 2026-09-30
+Last session: 2026-10-01
 
 ## Done
 - [x] Week 1 · Sat Sep 26: setup + scaffold
@@ -9,9 +9,10 @@ Last session: 2026-09-30
 - [x] Week 1 · Mon Sep 28: `POST /auth/register` with bcrypt (Postman set up)
 - [x] Week 1 · Tue Sep 29: `POST /auth/login` returning a JWT, decoded and inspected
 - [x] Week 1 · Wed Sep 30: auth middleware; create and list todos for the logged-in user (IDOR reproduced and fixed)
+- [x] Week 1 · Thu Oct 1: update and delete todos; attacker gets 404 on another user's todo (`getUserId` carry-over done)
 
 ## Carry-over (unfinished)
-- Make `req.userId!` safe by construction instead of relying on `requireAuth` always running first
+- Lock down CORS to specific origins before deploying (currently `*`)
 
 ## Open questions for next session
-- If the attacker sends `DELETE /todos/5` and todo 5 belongs to someone else, should the API respond 403 or 404? What does each tell the attacker?
+- `.env` is gitignored, so it never reaches GitHub. How will the deployed server get `DATABASE_URL` and `JWT_SECRET`?
